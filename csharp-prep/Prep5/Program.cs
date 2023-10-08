@@ -5,12 +5,9 @@ class Program
     static void Main(string[] args)
     {
         DisplayWelcomeMessage();
-
         string userName = PromptUserName();
         int userNumber = PromptUserNumber();
-
         int squaredNumber = SquareNumber(userNumber);
-
         DisplayResult(userName, squaredNumber);
     }
 
@@ -23,7 +20,6 @@ class Program
     {
         Console.Write("Please enter your name: ");
         string name = Console.ReadLine();
-
         return name;
     }
 
