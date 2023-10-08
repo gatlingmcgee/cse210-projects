@@ -27,6 +27,7 @@ class Program
             Console.WriteLine("5. Quit");
 
             Console.Write("What would you like to do? ");
+
             string option = Console.ReadLine();
             if (option == "1")
             {
@@ -41,11 +42,12 @@ class Program
                 entry._date = date;
 
                 journal.AddEntry(entry);
-
+                Console.WriteLine();
         }
         else if (option == "2")
         {
             journal.DisplayEntries();
+            Console.WriteLine();
         }
         else if (option == "3")
         {
@@ -65,11 +67,15 @@ class Program
         }
         else
         {
+            Console.WriteLine();
             Console.WriteLine("Oops, please enter a valid number.");
+            Console.WriteLine();
         }
     }
+    Console.WriteLine();
     Console.WriteLine("Thanks, here is an uplifting quote for you!");
         string mes1 = message.GetPrompt();
         Console.WriteLine(mes1);
+        Console.WriteLine();
     }
 }

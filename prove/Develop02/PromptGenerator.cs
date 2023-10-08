@@ -21,6 +21,7 @@ public class PromptGenerator
 
     public string GetPrompt()
     {
+        Console.WriteLine();
         int index = opt.Next(_prompts.Count());
         return _prompts[index];
     }

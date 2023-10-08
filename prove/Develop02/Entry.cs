@@ -17,6 +17,7 @@ namespace Develop02
         public string Displaystring()
         {
             string _entry = @$"> Date: {_date} - Prompt: {_prompt} - Answer: {_answer}";
+            Console.WriteLine();
             return _entry;
         }
     }
