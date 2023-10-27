@@ -8,31 +8,27 @@ using System.Threading.Tasks;
 // A class to represent a scripture
 public class Scripture
 {
-    private Reference _reference;
-    private List<Word> _scripture = new List<Word>();
+    private Reference refer;
+    private List<Word> scrip = new List<Word>();
 
-    public Scripture(Reference reference, string text) 
+    public Scripture(Reference reference, string script) 
     {
-        _reference = reference;
-
-        string[] words = text.Split(" ");
-
+        refer = reference;
+        string[] words = script.Split(" ");
         foreach (string w in words) 
         {
             Word word = new Word(w);
-            _scripture.Add(word);
+            scrip.Add(word);
             
         }
     }
 
-
     public void DisplayScripture() 
     {
-        Console.WriteLine(_reference.GetRenderedReference());
-
-        foreach (Word word in _scripture)
+        Console.WriteLine(refer.GetReference());
+        foreach (Word word in scrip)
         {
-            Console.Write(word.GetRenderedWord() + " ");
+            Console.Write(word.GetWords() + " ");
         }
 
         Console.WriteLine();
@@ -41,16 +37,13 @@ public class Scripture
     public void HiddenWords() 
     {
         int number;
-
         for (int i = 0; i < 3; i++) 
         {
             while(true)
             {
                 Random randomGenerator = new Random();
-                number = randomGenerator.Next(0, _scripture.Count);
-
-                Word word = _scripture[number];
-
+                number = randomGenerator.Next(0, scrip.Count);
+                Word word = scrip[number];
                 if (word.IsHidden() == false)
                 {
                     word.Hide();
@@ -60,19 +53,17 @@ public class Scripture
         }
     }
 
-    public bool IsCompletelyhidden() 
+    public bool IsHidden() 
     {
         int count = 0;
-
-        foreach (Word word in _scripture)
+        foreach (Word word in scrip)
         {
             if (word.IsHidden() == true)
             {
                 count++;
             }
         }
-
-        if (count == _scripture.Count)
+        if (count == scrip.Count)
         {
             return true;
         }

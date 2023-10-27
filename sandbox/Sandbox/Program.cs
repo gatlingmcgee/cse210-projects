@@ -2,23 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 class Program 
 {
-    static void Main(string[] args) {
-        string txt = "Enter scripture here.";
-        Reference reference = new Reference("Book", 55, 7);
-        Scripture scripture = new Scripture(reference, txt);
-
+    static void Main(string[] args) 
+    {   
+        string scrip = "5. There is no such thing as immaterial matter. 6. All spirit is matter, but it is more fine or pure, and can only be dicerned by purer eyes.";
+        Reference book = new Reference("D&C", 131, 5);
+        Scripture scripture = new Scripture(book, scrip);
         while(true)
         {
             Console.Clear();
             scripture.DisplayScripture();
             Console.WriteLine();
-
-            Console.Write("Press enter or type quit to end program.");
+            Console.Write("Please press enter or type quit to end program.");
             string input = Console.ReadLine();
-
             if (input == "quit")
             {
                 break;
@@ -31,7 +31,7 @@ class Program
                 }
                 else
                 {
-                    scripture>HiddenWords();
+                    scripture.HiddenWords();
                 }
             }
         }
@@ -41,44 +41,3 @@ class Program
 
 
 
-
-
-
-
-
-
-
-
-class Program
-{
-    static void Main()
-    {
-        Scripture scripture = new Scripture("Proverbs 3:5-6", "5. Trust in the Lord with all thine heart; and lean not unto thine own understanding. 6. In all thy ways aacknowledge him, and he shall be direct in all thy paths.");
-
-        Console.Clear();
-        scripture.DisplayScripture();
-
-        while (true)
-        {
-            Console.WriteLine("Press enter to hide a word or type quit to exit:");
-            string userInput = Console.ReadLine();
-
-            if (userInput.ToLower() == "quit")
-            {
-                break;
-            }
-            else
-            {
-                Console.Clear();
-                scripture.HideWord();
-                scripture.DisplayScripture();
-
-                if (scripture.AllWordsHidden())
-                {
-                    Console.WriteLine("Congratulations, you have memorized the scripture!");
-                    break;
-                }
-            }
-        }
-    }
-}

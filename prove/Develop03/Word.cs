@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 // A class to represent a word in the scripture
 public class Word 
 {
-    private string _word;
-    private bool _hidden;
+    private string word;
+    private bool hidden;
 
     public Word(string text) 
     {
@@ -17,38 +17,34 @@ public class Word
         {
             throw new ArgumentException("text cannot be empty", nameof(text));
         }
-        _word = text;
-        _hidden = false;
+        word = text;
+        hidden = false;
     }
-
-    public string GetRenderedWord() 
+    public string GetWords() 
     {
-        // string renderedWord = _word;
+        // string renderedWord = word;
 
-        if (_hidden == false)
+        if (hidden == false)
         {
-            return _word;
+            return word;
         }
         else
         {
-            string renderedWord = string.Concat(Enumerable.Repeat("_", _word.Length));
+            string renderedWord = string.Concat(Enumerable.Repeat("_", word.Length));
             return renderedWord;
         }
     }
-
     public void Hide() 
     {
-        _hidden = true;
+        hidden = true;
     }
-
     public void show() 
     {
-        _hidden = false;
+        hidden = false;
     }
-
     public bool IsHidden() 
     {
-        if (_hidden == true)
+        if (hidden == true)
         {
             return true;
         }

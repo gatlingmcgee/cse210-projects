@@ -9,17 +9,16 @@ class Program
 {
     static void Main(string[] args) 
     {
-        string txt = "For God so loved the world he gave his only begoton son.";
-        Reference reference = new Reference("John", 3, 16);
-        Scripture scripture = new Scripture(reference, txt);
+        string scrip = "6. Wherefore, redemption cometh in and through the Holy Messiah; for he is full of grace and truth. Behold, he offereth himself a sacrifice for sin, to answer the ends of the law, unto all those who have a broken heart and a contrite spirit; and unto none else can the ends of the law be answered.";
+        Reference reference = new Reference("2 Nephi", "2", "6-7");
+        Scripture scripture = new Scripture(reference, scrip);
 
         while(true)
         {
             Console.Clear();
             scripture.DisplayScripture();
             Console.WriteLine();
-
-            Console.Write("Press enter or type quit to end program.");
+            Console.Write("Please press enter until scripture is hidden or type quit to end program.");
             string input = Console.ReadLine();
 
             if (input == "quit")
@@ -28,7 +27,7 @@ class Program
             }
             else
             {
-                if (scripture.IsCompletelyhidden() == true)
+                if (scripture.IsHidden() == true)
                 {
                     break;
                 }

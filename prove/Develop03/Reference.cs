@@ -8,42 +8,27 @@ using System.Threading.Tasks;
 // A class to represent a scripture reference
 public class Reference
 {
-    private string _book;
-    private int _chapter;
-    private int _startVerse;
-    private int _endVerse;
+    private string book;
+    private string chapter;
+    private string verse;
 
-
-    public Reference(string book, int chapter, int verse)
+    public Reference(string books, string chapters, string verses)
     {
-        _book = book;
-        _chapter = chapter;
-        _startVerse = verse;
-        _endVerse = -1;
+        book = books;
+        chapter = chapters;
+        verse = verses;
     }
 
-    public Reference(string book, int chapter, int startVerse, int endVerse)
+    public Reference(string books, string chapters, string verses, string endVerse)
     {
-        _book = book;
-        _chapter = chapter;
-        _startVerse = startVerse;
-        _endVerse = endVerse;
+        book = books;
+        chapter = chapters;
+        verse = $"{verses}-{endVerse}";
     }
 
-    public string GetRenderedReference()
+    public string GetReference()
     {
-        string renderedReference;
-
-        if (_endVerse == -1)
-        {
-            renderedReference = $"{_book} {_chapter}:{_startVerse}";
-            return renderedReference;
-        }
-        else
-        {
-            renderedReference = $"{_book} {_chapter}:{_startVerse}-{_endVerse}";
-            return renderedReference;
-        }
+        return $"{book} {chapter}: {verse}";
     }
 }
 

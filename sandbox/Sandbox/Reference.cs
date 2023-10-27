@@ -2,46 +2,64 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // A class to represent a scripture reference
-public class Reference 
+public class Reference
 {
-    private string _book;
-    private int _chapter;
-    private int _startVerse;
-    private int _endVerse;
-
-
-    public Reference(string book, int chapter, int verse) 
+    private string book;
+    private int chapter;
+    private int startVerse;
+    private int endVerse;
+    
+    public string Book
     {
-    _book = book;
-    _chapter = chapter;
-    _startVerse = verse;
-    _endVerse = -1;
+        get { return book; }
+        set { book = value; }
     }
-
-    public Reference(string book, int chapter, int startVerse, int endVerse) 
+    public int Chapter
     {
-        _book = book;
-        _chapter = chapter;
-        _startVerse = startVerse;
-        _endVerse = endVerse;
+        get { return chapter; }
+        set { chapter = value; }
     }
-
-    public string GetRenderedReference() 
+    public int StartVerse
+    {
+        get { return startVerse; }
+        set { startVerse = value; }
+    }
+    public int EndVerse
+    {
+        get { return endVerse; }
+        set { endVerse = value; }
+    }
+    public Reference(string book, int chapter, int verse)
+    {
+        this.book = book;
+        this.chapter = chapter;
+        this.startVerse = verse;
+        this.endVerse = verse;
+    }
+    public Reference(string book, int chapter, int startVerse, int endVerse)
+    {
+        this.book = book;
+        this.chapter = chapter;
+        this.startVerse = startVerse;
+        this.endVerse = endVerse;
+    }
+    public string GetRenderedReference()
     {
         string renderedReference;
-
-        if (_endVerse == 0)
+        if (startVerse == endVerse)
         {
-            renderedReference = $"{_book} {_chapter}:{_startVerse}";
+            renderedReference = $"{book} {chapter}:{startVerse}";
             return renderedReference;
         }
         else
         {
-            renderedReference = $"{_book} {_chapter}:{_startVerse}-{endVerse}";
+            renderedReference = $"{book} {chapter}:{startVerse}-{endVerse}";
             return renderedReference;
         }
-    }    
+    }
 }
 
