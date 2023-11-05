@@ -1,5 +1,6 @@
 using System;
 
+// My program exceeds requirments by running a check in the Reflecting Activity for used questions so you get a new one each time.
 class Program
 {
     static void Main(string[] args)
