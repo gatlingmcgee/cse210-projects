@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+// For exceeding requirements I have added an option to be able to contemplate the day and deduct points if needed.
 class Program
 {
     static private List<Goal> theGoals = new List<Goal>();
