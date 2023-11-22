@@ -12,7 +12,7 @@ public abstract class Goal
         return theName;
     }
 
-    public Goal(string name, string description, int points, bool isCompleted = false)
+    protected Goal(string name, string description, int points, bool isCompleted = false)
     {
         theName = name;
         theDescription = description;

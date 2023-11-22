@@ -1,4 +1,4 @@
-200
+100
 SimpleGoal,pray,pray daily,50,True
 EternalGoal,talk,give talk,100,False
 ChecklistGoal,temple,attend temple,50,3,300,2
