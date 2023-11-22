@@ -1,6 +1,5 @@
 using System;
 
-// Eternal Goal class
 public class EternalGoal : Goal
 {
     public EternalGoal(string name, string description, int points)

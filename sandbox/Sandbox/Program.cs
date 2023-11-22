@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+// For exceeding requirements I have added an option to be able to contemplate the day and deduct points if needed.
 class Program
 {
     static private List<Goal> theGoals = new List<Goal>();
@@ -20,7 +20,7 @@ class Program
             Console.WriteLine("3. Save Goals");
             Console.WriteLine("4. Load Goals");
             Console.WriteLine("5. Record event");
-            Console.WriteLine("6. Subtract Points");
+            // Console.WriteLine("6. Subtract Points");
             Console.WriteLine("7. Quit");
             Console.Write("Select a choice from the menu: ");
             string input = Console.ReadLine();
@@ -31,7 +31,7 @@ class Program
                 Console.WriteLine("1. Simple goal.");
                 Console.WriteLine("2. Eternal goal.");
                 Console.WriteLine("3. Checklist goal.");
-                // Console.WriteLine("4. Negetive goal.");
+                Console.WriteLine("4. Negetive goal.");
                 Console.Write("What type of goal would you like to create? ");
                 string goalTypeInput = Console.ReadLine();
 
@@ -65,10 +65,10 @@ class Program
                     theGoals.Add(new ChecklistGoal(name, description, points, times, bonus));
                 }
 
-                // if (goalTypeInput == "4")
-                // {
-                //     theGoals.Add(new NegativeGoal(name, description, points));
-                // }
+                if (goalTypeInput == "4")
+                {
+                    theGoals.Add(new NegativeGoal(name, description, points));
+                }
 
 
             }
@@ -139,13 +139,14 @@ class Program
 
                 Console.WriteLine($"You now have {earnedPoints} points.");
             }
-            else if (input == "6")
-            {
-                Console.Write("Enter the number of points to subtract from your points: ");
-                int pointsToSubtract = int.Parse(Console.ReadLine());
-                earnedPoints -= pointsToSubtract;
-                Console.WriteLine($"Subtracted {pointsToSubtract} points. You now have {earnedPoints} points.");
-            }
+            // else if (input == "6")
+            // {
+            //     Console.WriteLine("Contemplate the goals you have fallen short of today.");
+            //     Console.Write("Enter the number of points to subtract from your points: ");
+            //     int pointsToSubtract = int.Parse(Console.ReadLine());
+            //     earnedPoints -= pointsToSubtract;
+            //     Console.WriteLine($"Subtracted {pointsToSubtract} points. You now have {earnedPoints} points.");
+            // }
             else if (input == "7")
             {
                 break;

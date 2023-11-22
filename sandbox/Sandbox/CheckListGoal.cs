@@ -1,6 +1,5 @@
 using System;
 
-// Checklist Goal class
 public class ChecklistGoal : Goal
 {
     protected int numberOfTimes;
