@@ -1,39 +1,46 @@
 using System;
 
-// A base class for goals
-abstract class Goal
+// Base class for all types of goals
+public abstract class Goal
 {
-    // A private member variable to store the name of the goal
-    private string name;
+    protected string theName;
+    protected string theDescription;
+    protected int thePoints;
+    protected bool goalCompleted;
 
-    // A private member variable to store the points earned by the goal
-    private int points;
-
-    // A constructor that takes the name and points as parameters
-    public Goal(string name, int points)
+    public string GetName()
     {
-        this.name = name;
-        this.points = points;
+        return theName;
     }
 
-    // A public property to get the name of the goal
-    public string Name
+    public Goal(string name, string description, int points, bool isCompleted = false)
     {
-        get { return name; }
+        theName = name;
+        theDescription = description;
+        thePoints = points;
+        goalCompleted = false;
     }
 
-    // A public property to get the points earned by the goal
-    public int Points
+    public Goal(string name, string description, int points, int times, int bonus, int timesDone = 0)
     {
-        get { return points; }
+        theName = name;
+        theDescription = description;
+        thePoints = points;
     }
 
-    // An abstract method to record an event for the goal
-    public abstract void RecordEvent();
+    public virtual string GetString()
+    {
+        return $"{theName} {theDescription} -- {thePoints} points";
+    }
 
-    // An abstract method to check if the goal is completed
-    public abstract bool IsCompleted();
+    public virtual int RegisterGoal()
+    {
+        goalCompleted = true;
+        return thePoints;
+    }
 
-    // An abstract method to display the goal status
-    public abstract void DisplayStatus();
+    public virtual string ToSavedString()
+    {
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{goalCompleted}";
+    }
 }

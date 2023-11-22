@@ -1,34 +1,25 @@
 using System;
 
-// A derived class for eternal goals
-class EternalGoal : Goal
+// Eternal Goal class
+public class EternalGoal : Goal
 {
-    // A constructor that calls the base constructor
-    public EternalGoal(string name, int points) : base(name, points)
+    public EternalGoal(string name, string description, int points)
+        : base(name, description, points)
     {
     }
 
-    // An override method to record an event for the goal
-    public override void RecordEvent()
+    public override string GetString()
     {
-        // Add points to the score
-        Program.score += Points;
+        return $"[ ] {theName} ({theDescription})";
     }
 
-    // An override method to check if the goal is completed
-    public override bool IsCompleted()
+    public override int RegisterGoal()
     {
-        // Return false since the goal is never completed
-        return false;
+        return goalCompleted ? 0 : thePoints;
     }
 
-    // An override method to display the goal status
-    public override void DisplayStatus()
+    public override string ToSavedString()
     {
-        // Display the name and points of the goal
-        Console.WriteLine(Name + " (" + Points + " points)");
-
-        // Display the completion status of the goal
-        Console.WriteLine("[ ] Ongoing");
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{goalCompleted}";
     }
 }

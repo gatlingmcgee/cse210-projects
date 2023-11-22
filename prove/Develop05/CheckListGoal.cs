@@ -1,129 +1,40 @@
 using System;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
-[Serializable]
-class ChecklistGoal : Goal
+public class ChecklistGoal : Goal
 {
-    private int targetCount;
-    private int currentCount;
+    protected int numberOfTimes;
+    protected int bonusAmount;
+    protected int completedTimes;
 
-    public ChecklistGoal(string description, int targetCount) : base(description)
+    public ChecklistGoal(string name, string description, int points, int times, int bonus, int timesDone = 0)
+        : base(name, description, points, times, bonus, timesDone)
     {
-        this.targetCount = targetCount;
-        this.currentCount = 0;
+        numberOfTimes = times;
+        bonusAmount = bonus;
+        completedTimes = timesDone;
     }
 
-    public override void RecordEvent()
+    public override string GetString()
     {
-        currentCount++;
-        if (currentCount >= targetCount)
+        string cross = completedTimes == numberOfTimes ? "X" : " ";
+        return $"[{cross}] {theName} ({theDescription}) -- Currently complete: {completedTimes}/{numberOfTimes}";
+    }
+
+    public override int RegisterGoal()
+    {
+        completedTimes++;
+
+        if (completedTimes == numberOfTimes)
         {
-            isCompleted = true;
+            goalCompleted = true;
+            return thePoints + bonusAmount;
         }
+
+        return thePoints;
     }
 
-    public override int GetValue()
+    public override string ToSavedString()
     {
-        return isCompleted ? 500 : 50;
-    }
-
-    public override string GetStatus()
-    {
-        return $"Completed {currentCount}/{targetCount} times";
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{numberOfTimes},{bonusAmount},{completedTimes}";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class ChecklistGoal : Goal
-// {
-//     private int targetCount;
-//     private int currentCount;
-
-//     public ChecklistGoal(string description, int targetCount) : base(description)
-//     {
-//         this.targetCount = targetCount;
-//         this.currentCount = 0;
-//     }
-
-//     public override void RecordEvent()
-//     {
-//         currentCount++;
-//         if (currentCount >= targetCount)
-//         {
-//             isCompleted = true;
-//         }
-//     }
-
-//     public override int GetValue()
-//     {
-//         return isCompleted ? 10 : 0;
-//     }
-
-//     public override string GetStatus()
-//     {
-//         return $"{currentCount}/{targetCount} completed";
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-// // Checklist Goal class
-// public class ChecklistGoal : Goal
-// {
-//     private int CompletedCount { get; set; }
-//     private int RequiredCount { get; set; }
-
-//     public ChecklistGoal(string name, int value, int requiredCount)
-//     {
-//         Name = name;
-//         Value = value;
-//         RequiredCount = requiredCount;
-//     }
-
-//     public override void RecordEvent()
-//     {
-//         CompletedCount++;
-//         Console.WriteLine($"Event recorded for {Name}. You gained {Value} points.");
-//         if (CompletedCount == RequiredCount)
-//         {
-//             Console.WriteLine($"You completed {Name}! You gained an extra bonus.");
-//             IsCompleted = true;
-//         }
-//     }
-
-//     public override string GetStatus()
-//     {
-//         return $"Completed {CompletedCount}/{RequiredCount} times";
-//     }
-// }

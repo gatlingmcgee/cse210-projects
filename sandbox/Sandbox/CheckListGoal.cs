@@ -1,63 +1,41 @@
 using System;
 
-// A derived class for checklist goals
-class ChecklistGoal : Goal
+// Checklist Goal class
+public class ChecklistGoal : Goal
 {
-    // A private member variable to store the target number of times to complete the goal
-    private int target;
+    protected int numberOfTimes;
+    protected int bonusAmount;
+    protected int completedTimes;
 
-    // A private member variable to store the current number of times the goal is completed
-    private int count;
-
-    // A private member variable to store the bonus points for completing the goal
-    private int bonus;
-
-    // A constructor that calls the base constructor and initializes the target, count and bonus
-    public ChecklistGoal(string name, int points, int target, int bonus) : base(name, points)
+    public ChecklistGoal(string name, string description, int points, int times, int bonus, int timesDone = 0)
+        : base(name, description, points, times, bonus, timesDone)
     {
-        this.target = target;
-        this.count = 0;
-        this.bonus = bonus;
+        numberOfTimes = times;
+        bonusAmount = bonus;
+        completedTimes = timesDone;
     }
 
-    // An override method to record an event for the goal
-    public override void RecordEvent()
+    public override string GetString()
     {
-        // If the goal is not completed, increment the count and add points
-        if (!IsCompleted())
-        {
-            count++;
-            Program.score += Points;
-
-            // If the goal is completed, add the bonus points
-            if (IsCompleted())
-            {
-                Program.score += bonus;
-            }
-        }
+        string cross = completedTimes == numberOfTimes ? "X" : " ";
+        return $"[{cross}] {theName} ({theDescription}) -- Currently complete: {completedTimes}/{numberOfTimes}";
     }
 
-    // An override method to check if the goal is completed
-    public override bool IsCompleted()
+    public override int RegisterGoal()
     {
-        // Return true if the count is equal to or greater than the target
-        return count >= target;
+        completedTimes++;
+
+        if (completedTimes == numberOfTimes)
+        {
+            goalCompleted = true;
+            return thePoints + bonusAmount;
+        }
+
+        return thePoints;
     }
 
-    // An override method to display the goal status
-    public override void DisplayStatus()
+    public override string ToSavedString()
     {
-        // Display the name, points, target and bonus of the goal
-        Console.WriteLine(Name + " (" + Points + " points each, " + target + " times, " + bonus + " bonus points)");
-
-        // Display the completion status of the goal
-        if (IsCompleted())
-        {
-            Console.WriteLine("[X] Completed " + count + "/" + target + " times");
-        }
-        else
-        {
-            Console.WriteLine("[ ] Completed " + count + "/" + target + " times");
-        }
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{numberOfTimes},{bonusAmount},{completedTimes}";
     }
 }

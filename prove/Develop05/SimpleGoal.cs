@@ -1,77 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
-[Serializable]
-class SimpleGoal : Goal
+public class SimpleGoal : Goal
 {
-    public SimpleGoal(string description) : base(description) { }
-
-    public override void RecordEvent()
+    public SimpleGoal(string name, string description, int points, bool isCompleted = false)
+        : base(name, description, points)
     {
-        base.RecordEvent();
+        goalCompleted = isCompleted;
     }
 
-    public override int GetValue()
+    public override string GetString()
     {
-        return isCompleted ? 1000 : 0;
+        string cross = goalCompleted ? "X" : " ";
+        return $"[{cross}] {theName} ({theDescription})";
+    }
+
+    public override int RegisterGoal()
+    {
+        return goalCompleted ? 0 : base.RegisterGoal();
+    }
+
+    public override string ToSavedString()
+    {
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{goalCompleted}";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class SimpleGoal : Goal
-// {
-//     public SimpleGoal(string description) : base(description) { }
-
-//     public override void RecordEvent()
-//     {
-//         base.RecordEvent();
-//     }
-
-//     public override int GetValue()
-//     {
-//         return isCompleted ? 5 : 0;
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Simple Goal class
-// public class SimpleGoal : Goal
-// {
-//     public SimpleGoal(string name, int value)
-//     {
-//         Name = name;
-//         Value = value;
-//     }
-
-//     public override string GetStatus()
-//     {
-//         return IsCompleted ? "[X] Completed" : "[ ] Not Completed";
-//     }
-// }

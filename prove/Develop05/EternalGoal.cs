@@ -1,73 +1,24 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
-[Serializable]
-class EternalGoal : Goal
+public class EternalGoal : Goal
 {
-    public EternalGoal(string description) : base(description) { }
-
-    public override int GetValue()
+    public EternalGoal(string name, string description, int points)
+        : base(name, description, points)
     {
-        return 100;
+    }
+
+    public override string GetString()
+    {
+        return $"[ ] {theName} ({theDescription})";
+    }
+
+    public override int RegisterGoal()
+    {
+        return goalCompleted ? 0 : thePoints;
+    }
+
+    public override string ToSavedString()
+    {
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{goalCompleted}";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class EternalGoal : Goal
-// {
-//     public EternalGoal(string description) : base(description) { }
-
-//     public override int GetValue()
-//     {
-//         return isCompleted ? 2 : 0;
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Eternal Goal class
-// public class EternalGoal : Goal
-// {
-//     public EternalGoal(string name, int value)
-//     {
-//         Name = name;
-//         Value = value;
-//     }
-
-//     public override void Complete()
-//     {
-//         Console.WriteLine($"You can't complete {Name}. You gained {Value} points.");
-//     }
-
-//     public override string GetStatus()
-//     {
-//         return "[ ] Not Completed";
-//     }
-// }

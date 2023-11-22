@@ -1,48 +1,27 @@
 using System;
 
-// A derived class for simple goals
-class SimpleGoal : Goal
+// Simple Goal class
+public class SimpleGoal : Goal
 {
-    // A private member variable to store the completion status of the goal
-    private bool completed;
-
-    // A constructor that calls the base constructor and initializes the completion status
-    public SimpleGoal(string name, int points) : base(name, points)
+    public SimpleGoal(string name, string description, int points, bool isCompleted = false)
+        : base(name, description, points)
     {
-        completed = false;
+        goalCompleted = isCompleted;
     }
 
-    // An override method to record an event for the goal
-    public override void RecordEvent()
+    public override string GetString()
     {
-        // If the goal is not completed, mark it as completed and add points
-        if (!completed)
-        {
-            completed = true;
-            Program.score += Points;
-        }
+        string cross = goalCompleted ? "X" : " ";
+        return $"[{cross}] {theName} ({theDescription})";
     }
 
-    // An override method to check if the goal is completed
-    public override bool IsCompleted()
+    public override int RegisterGoal()
     {
-        return completed;
+        return goalCompleted ? 0 : base.RegisterGoal();
     }
 
-    // An override method to display the goal status
-    public override void DisplayStatus()
+    public override string ToSavedString()
     {
-        // Display the name and points of the goal
-        Console.WriteLine(Name + " (" + Points + " points)");
-
-        // Display the completion status of the goal
-        if (completed)
-        {
-            Console.WriteLine("[X] Completed");
-        }
-        else
-        {
-            Console.WriteLine("[ ] Not completed");
-        }
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{goalCompleted}";
     }
 }

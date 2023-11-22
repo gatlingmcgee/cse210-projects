@@ -1,116 +1,45 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
-[Serializable]
-abstract class Goal
+public abstract class Goal
 {
-    protected string description;
-    protected bool isCompleted;
+    protected string theName;
+    protected string theDescription;
+    protected int thePoints;
+    protected bool goalCompleted;
 
-    public Goal(string description)
+    public string GetName()
     {
-        this.description = description;
-        this.isCompleted = false;
+        return theName;
     }
 
-    public virtual void RecordEvent()
+    public Goal(string name, string description, int points, bool isCompleted = false)
     {
-        isCompleted = true;
+        theName = name;
+        theDescription = description;
+        thePoints = points;
+        goalCompleted = false;
     }
 
-    public virtual int GetValue()
+    public Goal(string name, string description, int points, int times, int bonus, int timesDone = 0)
     {
-        return isCompleted ? 1 : 0;
+        theName = name;
+        theDescription = description;
+        thePoints = points;
     }
 
-    public virtual string GetStatus()
+    public virtual string GetString()
     {
-        return isCompleted ? "[X]" : "[ ]";
+        return $"{theName} {theDescription} -- {thePoints} points";
     }
 
-    public string Description { get { return description; } }
+    public virtual int RegisterGoal()
+    {
+        goalCompleted = true;
+        return thePoints;
+    }
+
+    public virtual string ToSavedString()
+    {
+        return $"{this.GetType().Name},{theName},{theDescription},{thePoints},{goalCompleted}";
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Goal
-// {
-//     protected string description;
-//     protected bool isCompleted;
-
-//     public Goal(string description)
-//     {
-//         this.description = description;
-//         this.isCompleted = false;
-//     }
-
-//     public virtual void RecordEvent()
-//     {
-//         isCompleted = true;
-//     }
-
-//     public virtual int GetValue()
-//     {
-//         return isCompleted ? 1 : 0;
-//     }
-
-//     public virtual string GetStatus()
-//     {
-//         return isCompleted ? "Completed" : "Not Completed";
-//     }
-
-//     public string Description { get { return description; } }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Base class for all types of goals
-// public abstract class Goal
-// {
-//     protected string Name { get; set; }
-//     protected int Value { get; set; }
-//     protected bool IsCompleted { get; set; }
-
-//     public virtual void Complete()
-//     {
-//         IsCompleted = true;
-//     }
-
-//     public virtual void RecordEvent()
-//     {
-//         Console.WriteLine($"Event recorded for {Name}. You gained {Value} points.");
-//     }
-
-//     public abstract string GetStatus();
-// }

@@ -1,143 +1,171 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
-// A class for the main program
 class Program
 {
-    // A public static variable to store the user's score
-    public static int score;
-
-    // A private static variable to store the list of goals
-    private static List<Goal> goals;
-
-    // A private static variable to store the file name for saving and loading
-    private static string fileName = "goals.txt";
-
-    // The main method
+    static private List<Goal> theGoals = new List<Goal>();
     static void Main(string[] args)
     {
-        // Initialize the score and the goals
-        score = 0;
-        goals = new List<Goal>();
+        int earnedPoints = 0;
 
-        // Display a welcome message
-        Console.WriteLine("Welcome to the Goal Tracker Program!");
-
-        // Display the menu and prompt the user for an option
-        DisplayMenu();
-        Console.Write("Enter an option: ");
-        string option = Console.ReadLine();
-
-        // Loop until the user enters Q to quit
-        while (option.ToUpper() != "Q")
+        do
         {
-            // Perform different actions based on the option
-            switch (option.ToUpper())
+            Console.WriteLine();
+            Console.WriteLine($"You have {earnedPoints} points.");
+            Console.WriteLine();
+            Console.WriteLine("Menu options:");
+            Console.WriteLine("1. Create New Goals");
+            Console.WriteLine("2. List Goals");
+            Console.WriteLine("3. Save Goals");
+            Console.WriteLine("4. Load Goals");
+            Console.WriteLine("5. Record event");
+            Console.WriteLine("6. Subtract Points");
+            Console.WriteLine("7. Quit");
+            Console.Write("Select a choice from the menu: ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
             {
-                case "A":
-                    // Add a new goal
-                    AddGoal();
-                    break;
-                case "R":
-                    // Record an event for a goal
-                    RecordEvent();
-                    break;
-                case "S":
-                    // Show the list of goals and the score
-                    ShowGoals();
-                    break;
-                case "L":
-                    // Load the goals and the score from a file
-                    LoadGoals();
-                    break;
-                case "W":
-                    // Save the goals and the score to a file
-                    SaveGoals();
-                    break;
-                default:
-                    // Display an invalid option message
-                    Console.WriteLine("Invalid option. Please try again.");
-                    break;
+                Console.WriteLine("The types of Goals are:");
+                Console.WriteLine("1. Simple goal.");
+                Console.WriteLine("2. Eternal goal.");
+                Console.WriteLine("3. Checklist goal.");
+                // Console.WriteLine("4. Negetive goal.");
+                Console.Write("What type of goal would you like to create? ");
+                string goalTypeInput = Console.ReadLine();
+
+                Console.Write("What is the name of your goal? ");
+                string name = Console.ReadLine();
+
+                Console.Write("What is a short description of it? ");
+                string description = Console.ReadLine();
+
+                Console.Write("What is the amount of points associated with this goal? ");
+                int points = int.Parse(Console.ReadLine());
+
+                if (goalTypeInput == "1")
+                {
+                    theGoals.Add(new SimpleGoal(name, description, points));
+                }
+
+                if (goalTypeInput == "2")
+                {
+                    theGoals.Add(new EternalGoal(name, description, points));
+                }
+
+                if (goalTypeInput == "3")
+                {
+                    Console.Write("How many times does this goal need to be accomplished for a bonus? ");
+                    int times = int.Parse(Console.ReadLine());
+
+                    Console.Write("What is the bonus for accomplishing it that many times? ");
+                    int bonus = int.Parse(Console.ReadLine());
+
+                    theGoals.Add(new ChecklistGoal(name, description, points, times, bonus));
+                }
+
+                // if (goalTypeInput == "4")
+                // {
+                //     theGoals.Add(new NegativeGoal(name, description, points));
+                // }
+
+
+            }
+            else if (input == "2")
+            {
+                Console.WriteLine();
+                DisplayGoals();
+            }
+            else if (input == "3")
+            {
+                Console.Write("What is the filename for the goal file? ");
+                string filename = Console.ReadLine();
+
+                using StreamWriter outputFile = new StreamWriter(filename);
+                outputFile.WriteLine(earnedPoints);
+
+                foreach (Goal goal in theGoals)
+                {
+                    outputFile.WriteLine(goal.ToSavedString());
+                }
+            }
+            else if (input == "4")
+            {
+                Console.Write("What is the filename for the goal file? ");
+                string filename = Console.ReadLine();
+
+                string[] lines = System.IO.File.ReadAllLines(filename);
+                earnedPoints = int.Parse(lines[0]);
+                theGoals.Clear();
+
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    string[] parts = lines[i].Split(",");
+
+                    if (parts[0] == "SimpleGoal")
+                    {
+                        theGoals.Add(new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]), bool.Parse(parts[4])));
+                    }
+                    else if (parts[0] == "EternalGoal")
+                    {
+                        theGoals.Add(new EternalGoal(parts[1], parts[2], int.Parse(parts[3])));
+                    }
+                    else if (parts[0] == "ChecklistGoal")
+                    {
+                        theGoals.Add(new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), int.Parse(parts[5]), int.Parse(parts[6])));
+                    }
+                }
+            }
+            else if (input == "5")
+            {
+               
+                int counter = 1;
+                Console.WriteLine("The goals are:");
+                foreach (var goal in theGoals)
+                {
+                    Console.WriteLine($"{counter}. {goal.GetName()}");
+                    counter = counter + 1;
+
+                }
+                Console.Write("Which goal did you accomplish? ");
+                int goalIndex = int.Parse(Console.ReadLine());
+                int points = theGoals[goalIndex - 1].RegisterGoal();
+                earnedPoints += points;
+
+                Console.WriteLine();
+
+                Console.WriteLine($"Congratulations! You have earned {points} points!");
+
+                Console.WriteLine($"You now have {earnedPoints} points.");
+            }
+            else if (input == "6")
+            {
+                Console.Write("Enter the number of points to subtract from your points: ");
+                int pointsToSubtract = int.Parse(Console.ReadLine());
+                earnedPoints -= pointsToSubtract;
+                Console.WriteLine($"Subtracted {pointsToSubtract} points. You now have {earnedPoints} points.");
+            }
+            else if (input == "7")
+            {
+                break;
             }
 
-            // Display the menu and prompt the user for another option
-            DisplayMenu();
-            Console.Write("Enter an option: ");
-            option = Console.ReadLine();
-        }
-
-        // Display a goodbye message
-        Console.WriteLine("Thank you for using the Goal Tracker Program!");
+        } while (true);
     }
 
-    // A method to display the menu
-    static void DisplayMenu()
+    static void DisplayGoals()
+
     {
-        Console.WriteLine("Menu:");
-        Console.WriteLine("A - Add a new goal");
-        Console.WriteLine("R - Record an event for a goal");
-        Console.WriteLine("S - Show the list of goals and the score");
-        Console.WriteLine("L - Load the goals and the score from a file");
-        Console.WriteLine("W - Save the goals and the score to a file");
-        Console.WriteLine("Q - Quit the program");
-    }
-
-    // A method to add a new goal
-    static void AddGoal()
-    {
-        // Prompt the user for the type of the goal
-        Console.WriteLine("What type of goal do you want to add?");
-        Console.WriteLine("1 - Simple goal");
-        Console.WriteLine("2 - Eternal goal");
-        Console.WriteLine("3 - Checklist goal");
-        Console.Write("Enter your choice: ");
-        string choice = Console.ReadLine();
-
-        // Prompt the user for the name and points of the goal
-        Console.Write("Enter the name of the goal: ");
-        string name = Console.ReadLine();
-        Console.Write("Enter the points for the goal: ");
-        int points = int.Parse(Console.ReadLine());
-
-        // Create a new goal object based on the type
-        Goal goal = null;
-        switch (choice)
+        int counter = 1;
+        Console.WriteLine("The goals are:");
+        foreach (var goal in theGoals)
         {
-            case "1":
-                // Create a simple goal object
-                goal = new SimpleGoal(name, points);
-                break;
-            case "2":
-                // Create an eternal goal object
-                goal = new EternalGoal(name, points);
-                break;
-            case "3":
-                // Prompt the user for the target and bonus of the goal
-                Console.Write("Enter the target number of times to complete the goal: ");
-                int target = int.Parse(Console.ReadLine());
-                Console.Write("Enter the bonus points for completing the goal: ");
-                int bonus = int.Parse(Console.ReadLine());
+            Console.WriteLine($"{counter}. {goal.GetString()}");
+            counter = counter + 1;
 
-                // Create a checklist goal object
-                goal = new ChecklistGoal(name, points, target, bonus);
-                break;
-            default:
-                // Display an invalid choice message
-                Console.WriteLine("Invalid choice. No goal added.");
-                return;
         }
-
-        // Add the goal object to the list of goals
-        goals.Add(goal);
-
-        // Display a confirmation message
-        Console.WriteLine("Goal added successfully.");
+        Console.WriteLine();
     }
 
-    // A method to record an event for a goal
-    static void RecordEvent()
-    {
-        // Prompt the user for the index of the goal
-        Console.Write("Enter the index of the goal (starting from 1): ");
-        int index = int.Parse(Console.ReadLine());
-
-        // Check if the index is valid
+}
