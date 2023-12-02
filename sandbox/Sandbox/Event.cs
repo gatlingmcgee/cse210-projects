@@ -17,9 +17,9 @@ class Event
 
     public string GetStandardDetails()
     {
-        // string formattedDateTime = dateAndTime.ToString("yyyy-MM-dd HH:mm");
+        string formattedDateTime = dateAndTime.ToString("yyyy-MM-dd HH:mm");
         
-        return $"Title: {title}\nDescription: {description}\nDate and Time: {dateAndTime}\nAddress: {address}";
+        return $"Title: {title}\nDescription: {description}\nDate and Time: {formattedDateTime}\nAddress: {address}";
     }
 
     public string GetFullDetails()
@@ -29,6 +29,8 @@ class Event
 
     public string GetShortDescription()
     {
-        return $"Type: Generic Event\nTitle: {title}\nDate: {dateAndTime.Date}";
+        string formattedDate = dateAndTime.ToString("yyyy-MM-dd");
+
+        return $"Type: Generic Event\nTitle: {title}\nDate: {formattedDate}";
     }
 }
