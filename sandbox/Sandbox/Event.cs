@@ -17,7 +17,7 @@ class Event
 
     public string GetStandardDetails()
     {
-        string formattedDateTime = dateAndTime.ToString("yyyy-MM-dd HH:mm");
+        // string formattedDateTime = dateAndTime.ToString("yyyy-MM-dd HH:mm");
         
         return $"Title: {title}\nDescription: {description}\nDate and Time: {dateAndTime}\nAddress: {address}";
     }
