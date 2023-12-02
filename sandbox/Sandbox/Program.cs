@@ -1,0 +1,46 @@
+using System;
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create an address
+        Address eventAddress = new Address("4217 W Seattle St", "Broken Arrow", "OK", "USA");
+
+        // Create events
+        Event lectureEvent = new LectureEvent("Lean Manufacturing", "Come learn what LEAN means!", new DateTime(2023, 11, 10, 14, 30), eventAddress, "Sean Sonderegger", 100);
+
+        Event receptionEvent = new ReceptionEvent("Safty First", "An opportunity to catch up on safty.", new DateTime(2023, 12, 5, 18, 0), eventAddress, "rsvp@example.com");
+
+        Event outdoorEvent = new OutdoorEvent("Quarterly Report", "Come see how the company is doing!", new DateTime(2023, 7, 15, 12, 0), eventAddress, "Sunny");
+
+        // Display marketing messages for each event
+        DisplayEventDetails(lectureEvent);
+        DisplayEventDetails(receptionEvent);
+        DisplayEventDetails(outdoorEvent);
+    }
+
+    static void DisplayEventDetails(Event theEvent)
+    {
+        Console.WriteLine("Standard details:");
+        Console.WriteLine(theEvent.GetStandardDetails());
+        Console.WriteLine();
+
+        Console.WriteLine("Full details:");
+        Console.WriteLine(theEvent.GetFullDetails());
+        Console.WriteLine();
+
+        Console.WriteLine("Short description:");
+        Console.WriteLine(theEvent.GetShortDescription());
+        Console.WriteLine();
+    }
+}
+
+
+
+
+
+
+
+
