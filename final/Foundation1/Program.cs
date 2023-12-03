@@ -7,34 +7,11 @@ class Program
     {
         List<Video> videos = new List<Video>();
 
-        // Video's
-        Video video1 = new Video
-        {
-            Title = "Programming with JavaScript",
-            Author = "Brother Gibson",
-            LengthInSeconds = 350
-        };
-
-        Video video2 = new Video
-        {
-            Title = "Debugging Concepts",
-            Author = "Brother Geroge",
-            LengthInSeconds = 1000
-        };
-
-        Video video3 = new Video
-        {
-            Title = "Programming with C#",
-            Author = "Brother Tripp",
-            LengthInSeconds = 820
-        };
-
-        Video video4 = new Video
-        {
-            Title = "Big brain concepts",
-            Author = "Brother Bright",
-            LengthInSeconds = 1440
-        };       
+        // Videos
+        Video video1 = new Video("Programming with JavaScript", "Brother Gibson", 350);
+        Video video2 = new Video("Debugging Concepts", "Brother Geroge", 1000);
+        Video video3 = new Video("Programming with C#", "Brother Tripp", 820);
+        Video video4 = new Video("Big brain concepts", "Brother Bright", 1440);
 
         // Comments
         video1.AddComment("James", "Great CSS!");
@@ -72,5 +49,6 @@ class Program
         Console.WriteLine();
         Console.WriteLine(video);
     }
-
 }
+
+

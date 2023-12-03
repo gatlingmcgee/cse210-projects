@@ -2,22 +2,28 @@ using System;
 
 class Customer
 {
-    public string Name;
-    private Address address;
+    private string Name;
+    private Address Address;
 
     public Customer(string name, Address address)
     {
         Name = name;
-        this.address = address;
+        Address = address;
     }
 
     public bool IsInUSA()
     {
-        return address.IsInUSA();
+        return Address.IsInUSA();
     }
 
     public override string ToString()
     {
-        return $"Address: {address}";
+        return $"Address: {Address}";
+    }
+
+    public string GetName()
+    {
+        return Name;
     }
 }
+

@@ -24,15 +24,15 @@ class Order
             totalPrice += product.GetTotalPrice();
         }
 
-            if (customer.IsInUSA())
-            {
-                totalPrice += 5;
-            }
-            else
-            {
-                totalPrice += 35;
-            }
-            return totalPrice;
+        if (customer.IsInUSA())
+        {
+            totalPrice += 5;
+        }
+        else
+        {
+            totalPrice += 35;
+        }
+        return totalPrice;
     }
 
     public string GetPackingLabel()
@@ -41,7 +41,7 @@ class Order
 
         foreach (var product in products)
         {
-            label += $"Product: {product.Name}, ID: {product.ProductId}\n";
+            label += $"Product: {product.GetName()}, ID: {product.GetProductId()}\n";
         }
 
         return label;
@@ -49,8 +49,7 @@ class Order
 
     public string GetShippingLabel()
     {
-        return $"Customer: {customer.Name}\n{customer.ToString()}";
+        return $"Customer: {customer.GetName()}\n{customer}";
     }
-
-
 }
+

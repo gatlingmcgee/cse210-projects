@@ -1,11 +1,18 @@
 using System;
 
-class Video
+public class Video
 {
-    public string Title;
-    public string Author;
-    public int LengthInSeconds;
+    private string Title;
+    private string Author;
+    private int LengthInSeconds;
     private List<Comment> comments = new List<Comment>();
+
+    public Video(string title, string author, int lengthInSeconds)
+    {
+        Title = title;
+        Author = author;
+        LengthInSeconds = lengthInSeconds;
+    }
 
     public void AddComment(string commenterName, string commentText)
     {
@@ -22,7 +29,7 @@ class Video
             result += "\nComments:";
             foreach (var comment in comments)
             {
-                result += $"\n{comment.CommenterName}: {comment.CommentText}";
+                result += $"\n{comment.GetName()}: {comment.GetComment()}";
             }
         }
 
@@ -34,3 +41,5 @@ class Video
         return comments.Count;
     }
 }
+
+

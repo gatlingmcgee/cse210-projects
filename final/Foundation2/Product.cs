@@ -2,10 +2,10 @@ using System;
 
 class Product
 {
-    public string Name;
-    public string ProductId;
-    public double Price;
-    public int Quantity;
+    private string Name;
+    private string ProductId;
+    private double Price;
+    private int Quantity;
 
     public Product(string name, string productId, double price, int quantity)
     {
@@ -20,4 +20,14 @@ class Product
         return Price * Quantity;
     }
 
+    public string GetName()
+    {
+        return Name;
+    }
+
+    public string GetProductId()
+    {
+        return ProductId;
+    }
 }
+

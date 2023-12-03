@@ -2,8 +2,8 @@ using System;
 
 public class Comment
 {
-    public string CommenterName;
-    public string CommentText;
+    private string CommenterName;
+    private string CommentText;
 
     public Comment(string commenterName, string commentText)
     {
@@ -21,3 +21,4 @@ public class Comment
         return CommentText;
     }
 }
+
