@@ -1,6 +1,6 @@
 using System;
 
-class RunningActivity : Activity
+public class RunningActivity : Activity
 {
     private double _distance;
 

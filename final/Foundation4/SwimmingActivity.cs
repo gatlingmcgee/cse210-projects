@@ -1,6 +1,6 @@
 using System;
 
-class SwimmingActivity : Activity
+public class SwimmingActivity : Activity
 {
     private double _laps;
 
